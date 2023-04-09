@@ -25,10 +25,16 @@ import java.util.Scanner;
             {
 
                 marks[i] = s.nextInt();
-
+                if(marks[i]>100)
+                {
+                System.out.println("enter valid mark");
+                break;
+                }
+                else
+                {
                 total = total + marks[i];
-
-            }
+                }
+                }
 
             percentage = total / n;
 
