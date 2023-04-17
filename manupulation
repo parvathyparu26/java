@@ -1,31 +1,73 @@
 import java.util.Scanner;
-class man
-{
-public static void main(String[] args)
-{
-System.out.println("Enter The String");
-Scanner sc = new Scanner(System.in);
-StringBuffer sb=new StringBuffer("Hello");
-sb.append("everyone");
-String str1 = sc.nextLine();
-System.out.println("Enter another string");
-String s=sc.nextLine();
-System.out.println("Length of String = "+str1.length());
-System.out.println("Character at First position  = "+str1.charAt(0));
-System.out.println("Concatenate :"+str1.concat(s));
-System.out.println("LOWERCASE : "+str1.toLowerCase());
-System.out.println("UPPERCASE : "+str1.toUpperCase());
-System.out.println("append : "+sb);
-System.out.println("replace: "+str1.replace("h","@"));
-System.out.println("indexof: "+str1.indexOf("e"));
-sb.insert(5,"java");
-System.out.println(sb);
-char[] ch = str1.toCharArray();   
-System.out.println("Char Array elements: ");  
-for (int i = 0; i <ch.length; i++) 
-{  
-  System.out.println(ch[i]);  
-}  
 
-}
+public class Stringmanipulate {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        
+        System.out.print("Enter a string: ");
+        String str = scanner.nextLine();
+        
+        
+        System.out.print("Enter a string to concatenate: ");
+        String strToConcat = scanner.nextLine();
+        String concatenatedStr = str.concat(strToConcat);
+        System.out.println("Concatenated string: " + concatenatedStr);
+        
+        
+        System.out.print("Enter a character to replace: ");
+        char oldChar = scanner.nextLine().charAt(0);
+        System.out.print("Enter a character to replace with: ");
+        char newChar = scanner.nextLine().charAt(0);
+        String replacedStr = str.replace(oldChar, newChar);
+        System.out.println("Replaced string: " + replacedStr);
+        
+        
+        char[] charArray = str.toCharArray();
+        System.out.print("Character array: ");
+        for (char c : charArray) {
+            System.out.print(c + " ");
+        }
+        System.out.println();
+        
+        
+        int length = str.length();
+        System.out.println("Length of string: " + length);
+        
+       
+        System.out.print("Enter a substring to search for: ");
+        String subStr = scanner.nextLine();
+        int index = str.indexOf(subStr);
+        if (index == -1) {
+            System.out.println("Substring not found.");
+        } else {
+            System.out.println("Index position of substring: " + index);
+        }
+        
+        
+        String upperCaseStr = str.toUpperCase();
+        System.out.println("Uppercase string: " + upperCaseStr);
+        
+        
+        StringBuffer stringBuffer = new StringBuffer(str);
+        
+       
+        System.out.print("Enter a string to concatenate: ");
+        String strToConcat2 = scanner.nextLine();
+        stringBuffer.append(strToConcat2);
+        System.out.println("Concatenated string: " + stringBuffer.toString());
+        
+        
+        int stringBufferLength = stringBuffer.length();
+        System.out.println("Length of StringBuffer: " + stringBufferLength);
+        
+       
+        System.out.print("Enter a position to insert substring: ");
+        int position = scanner.nextInt();
+        scanner.nextLine(); 
+        System.out.print("Enter a substring to insert: ");
+        String subStrToInsert = scanner.nextLine();
+        stringBuffer.insert(position, subStrToInsert);
+        System.out.println("StringBuffer after insertion: " + stringBuffer.toString());
+    }
 }
