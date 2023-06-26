@@ -73,6 +73,7 @@ public class Teacher extends Employee {
             String b = sc.next();
             System.out.println("\nAddress: ");
             String c = sc.next();
+            sc1.nextline();
             System.out.println("\nAge: ");
             int d = sc.nextInt();
             System.out.println("\nEmployee id: ");
