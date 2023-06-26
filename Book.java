@@ -1,3 +1,4 @@
+import java.util.*;
 class Publisher {
     private String name;
 
@@ -10,14 +11,15 @@ class Publisher {
     }
 }
 
-class Books {
+
+class Book {
     private String title;
-    private String author;
+    private int year;
     private Publisher publisher;
 
-    public Books(String title, String author, Publisher publisher) {
+    public Book(String title, int year, Publisher publisher) {
         this.title = title;
-        this.author = author;
+        this.year = year;
         this.publisher = publisher;
     }
 
@@ -25,84 +27,98 @@ class Books {
         return title;
     }
 
-    public String getAuthor() {
-        return author;
+    public int getYear() {
+        return year;
     }
 
     public Publisher getPublisher() {
         return publisher;
     }
+
+    public void displayDetails() {
+        System.out.println("Title: " + title);
+        System.out.println("Year: " + year);
+        System.out.println("Publisher: " + publisher.getName());
+    }
 }
 
-class Literature extends Books {
+
+class LiteratureBook extends Book {
+    private String author;
+
+    public LiteratureBook(String title, int year, Publisher publisher, String author) {
+        super(title, year, publisher);
+        this.author = author;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+   
+    public void displayDetails() {
+        super.displayDetails();
+        System.out.println("Author: " + author);
+        System.out.println("Category: Literature");
+    }
+}
+
+
+class FictionBook extends Book {
     private String genre;
 
-    public Literature(String title, String author, Publisher publisher, String genre) {
-        super(title, author, publisher);
+    public FictionBook(String title, int year, Publisher publisher, String genre) {
+        super(title, year, publisher);
         this.genre = genre;
     }
 
     public String getGenre() {
         return genre;
     }
-}
 
-class Fiction extends Books {
-    private String subgenre;
-
-    public Fiction(String title, String author, Publisher publisher, String subgenre) {
-        super(title, author, publisher);
-        this.subgenre = subgenre;
-    }
-
-    public String getSubgenre() {
-        return subgenre;
+    
+    public void displayDetails() {
+        super.displayDetails();
+        System.out.println("Genre: " + genre);
+        System.out.println("Category: Fiction");
     }
 }
 
-public class BookDetails {
+ class Mains {
     public static void main(String[] args) {
-        // Creating instances of publishers
-        Publisher penguinBooks = new Publisher("Penguin Books");
-        Publisher vintageClassics = new Publisher("Vintage Classics");
-        Publisher bloomsbury = new Publisher("Bloomsbury");
-        Publisher doubleday = new Publisher("Doubleday");
+        Scanner sc=new Scanner(System.in);
+System.out.println("enter the publishername");
+ String pname =sc.nextLine();
+        Publisher publisher = new Publisher(pname);
+System.out.println("enter the literaturename");
+        String lname =sc.nextLine();
+System.out.println("enter the year");
+int yr=sc.nextInt();
+sc.nextLine();
+System.out.println("enter the authorname");
+String auth=sc.nextLine();
+        LiteratureBook literatureBook = new LiteratureBook(lname,yr,publisher,auth);
+System.out.println("enter the fictionname");
 
-        // Creating instances of books
-        Literature book1 = new Literature("To Kill a Mockingbird", "Harper Lee", penguinBooks, "Classic");
-        Literature book2 = new Literature("Pride and Prejudice", "Jane Austen", vintageClassics, "Romance");
-        Fiction book3 = new Fiction("Harry Potter and the Sorcerer's Stone", "J.K. Rowling", bloomsbury, "Fantasy");
-        Fiction book4 = new Fiction("The Da Vinci Code", "Dan Brown", doubleday, "Mystery");
+String tl=sc.nextLine();
+System.out.println("enter the year");
 
-        // Creating an array of all books
-        Books[] allBooks = { book1, book2, book3, book4 };
+int yer=sc.nextInt();
+sc.nextLine();
+System.out.println("enter the genre");
 
-        // Printing literature books
-        System.out.println("Literature Books:");
-        printBooksByCategory(allBooks, Literature.class);
+String gen=sc.nextLine();
 
-        // Printing fiction books
-        System.out.println("Fiction Books:");
-        printBooksByCategory(allBooks, Fiction.class);
-    }
+        
+        FictionBook fictionBook = new FictionBook(tl,yer,publisher,gen);
 
-    public static void printBooksByCategory(Books[] booksArray, Class<?> category) {
-        for (Books book : booksArray) {
-            if (category.isInstance(book)) {
-                System.out.println("Title: " + book.getTitle());
-                System.out.println("Author: " + book.getAuthor());
-                System.out.println("Publisher: " + book.getPublisher().getName());
+        
+        System.out.println("Literature Book Details:");
+        literatureBook.displayDetails();
+        System.out.println();
 
-                if (category == Literature.class) {
-                    Literature literatureBook = (Literature) book;
-                    System.out.println("Genre: " + literatureBook.getGenre());
-                } else if (category == Fiction.class) {
-                    Fiction fictionBook = (Fiction) book;
-                    System.out.println("Subgenre: " + fictionBook.getSubgenre());
-                }
-
-                System.out.println();
-            }
-        }
+        
+        System.out.println("Fiction Book Details:");
+        fictionBook.displayDetails();
     }
 }
