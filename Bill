@@ -1,71 +1,77 @@
-import java.util.Scanner;
 
-interface calc
+import java.util.*;
+import java.text.SimpleDateFormat;
+interface bill
 {
-    void calculate();
+	void method();
 }
-
-class bill implements calc
+class Product implements bill
 {
-
-    String date,name,p_id;
-    int quantity;
-    double unit_price,total,namount=0;
-    Scanner sc = new Scanner(System.in);
-    public void getdata()
-    {
-        System.out.println("\nEnter product id:");
-        p_id = sc.nextLine();
-        System.out.println("Enter product name:");
-        name = sc.nextLine();
-        System.out.println("Enter the Quantity:");
-        quantity = sc.nextInt();
-        System.out.println("Enter the unit price:");
-        unit_price = sc.nextDouble();
-    }
-    
-    public void calculate()
-    {
-        total = quantity * unit_price;
-    }
-    public void display()
-    {        
-        System.out.println(p_id+"\t\t"+name+"\t\t"+quantity+"\t\t"+unit_price+"\t"+total);
-    }
+	String p_name;
+	int p_id,p_qty,order_no;
+	float p_price,total_price;
+	Product()
+	{
+	}
+	Product(String name,int id,int qty,float price,float total)
+	{
+		p_name=name;
+		p_id=id;
+		p_qty=qty;
+		p_price=price;
+		total_price=total;
+	}
+	void display()
+	{
+		Date date = new Date();
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+		String str = formatter.format(date);
+		Random rand = new Random();
+		int upperbound = 25;
+		int int_random = rand.nextInt(upperbound);
+		System.out.println("\n");
+		System.out.println("Order no:"+ int_random);
+		System.out.println("Date: " + str);
+		System.out.println("---------------------------------------------------------------------------------");
+		System.out.println("\nProduct Id\tName\t Quantity\tUnit price\tTotal");
+	}
+	public void method()
+	{
+		System.out.println(p_id+"\t\t" +p_name+"\t\t" +p_qty+"\t" +p_price+"\t\t" +total_price);
+	}
 }
-
-public class calculator
+class Bill
 {
-    public static void main(String[] args) 
-    {
-        int n,i;
-        double namount=0,t;
-        int ran;
-        String date;
-        t = Math.random() *1000000;
-        ran = (int) t;
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Order no. #"+ran);
-        System.out.println("Enter the date:");
-        date = sc.nextLine();
-        System.out.println("Enter how many products are there:");
-        n = sc.nextInt();
-        bill ob[] = new bill[n];
-        for(i=0;i<n;i++)
-            ob[i] = new bill();
-        for(i=0;i<n;i++){
-            ob[i].getdata();
-            ob[i].calculate();
-        }
-        System.out.println("Date:"+date);
-        System.out.println("Product Id \tName\t   Quantity\t   unit price\t Total ");
-        System.out.println("--------------------------------------------------------------");
-        for(i=0;i<n;i++){
-            ob[i].display();
-            namount += ob[i].total;
-        }
-        System.out.println("--------------------------------------------------------------");
-        System.out.println("\t\t\tNet.Amount\t"+ namount);
-
-    }
+	public static void main(String args[])
+	{
+		Scanner sc=new Scanner(System.in);
+		Scanner s=new Scanner(System.in);
+		float net_amt=0,total;
+		System.out.print("Enter the total number of items: ");
+		int n=sc.nextInt();
+		Product [] obj=new Product[n];
+		for(int i=0;i<n;i++)
+{
+		System.out.println("Enter product" + " " +(i+1) + " " + "details:");
+		System.out.print("Name: ");
+		String name = s.nextLine();
+		System.out.print("ID: ");
+		int id= sc.nextInt();
+		System.out.print("Quantity: ");
+		int qty = sc.nextInt();
+		System.out.print("Price (per item): ");
+		float price = sc.nextFloat();
+		total = price * qty;
+		net_amt+=total;
+		obj[i]=new Product(name,id,qty,price,total);
+		}
+		Product prdct=new Product();
+		prdct.display();
+		for(int i=0;i<n;i++)
+		obj[i].method();
+		System.out.println("---------------------------------------------------------------------------------");
+		String temp="Net Amount";
+		System.out.println("\t\t\t\t\t\t"+temp+" "+net_amt);
+		System.out.println();
+	}
 }
